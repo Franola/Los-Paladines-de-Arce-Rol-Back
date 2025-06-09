@@ -1,0 +1,20 @@
+{
+  "name": "los-paladines-de-arce-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "node --watch ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
+  }
+}
