@@ -10,7 +10,7 @@ async function getUsuarios(req, res) {
     }
     catch (error) {
         return res.status(500).json({ 
-            error: "Error al obtener las usuarios" 
+            error: "Error al obtener los usuarios" 
         });
     }
 }
@@ -21,14 +21,14 @@ async function getUsuarioById(req, res) {
         const usuario = await usuarioService.getUsuarioById(id);
 
         if (!usuario) {
-            return res.status(404).json({ error: "Usuario no encontrada" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
         return res.status(200).json(usuario);
     }
     catch (error) {
         return res.status(500).json({
-            error: "Error al obtener la usuario"
+            error: "Error al obtener el usuario"
         });
     }
 }
@@ -78,7 +78,7 @@ async function updateUsuario(req, res) {
 
         const usuario = await usuarioService.getUsuarioById(id);
         if (!usuario) {
-            return res.status(404).json({ error: "Usuario no encontrada" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
         const updatedUsuario = await usuarioService.updateUsuario(id, usuarioData);
@@ -87,7 +87,7 @@ async function updateUsuario(req, res) {
     }
     catch (error) {
         return res.status(500).json({
-            error: "Error al actualizar la usuario"
+            error: "Error al actualizar el usuario"
         });
     }
 }
@@ -98,7 +98,7 @@ async function deleteUsuario(req, res) {
 
         const usuario = await usuarioService.getUsuarioById(id);
         if (!usuario) {
-            return res.status(404).json({ error: "Usuario no encontrada" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
         await usuarioService.deleteUsuario(id);
@@ -107,7 +107,7 @@ async function deleteUsuario(req, res) {
     }
     catch (error) {
         return res.status(500).json({
-            error: "Error al eliminar la usuario"
+            error: "Error al eliminar el usuario"
         });
     }
 }
