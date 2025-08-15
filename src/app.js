@@ -4,10 +4,10 @@ import dotenv from "dotenv";
 import clasesRouter from './routes/clases.router.js';
 import ramasRouter from './routes/ramas.router.js';
 import categoriasRouter from './routes/categorias.router.js';
+import usuariosRouter from './routes/usuarios.router.js';
 import cookieParser from "cookie-parser";
 import passport from 'passport';
-import jwt from "jsonwebtoken";
-// import { iniciarPassport } from "./config/passport.config.js";
+import { iniciarPassport } from "./config/passport.config.js";
 
 const PORT=3000;
 
@@ -18,8 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
-// iniciarPassport()
-// app.use(passport.initialize())
+iniciarPassport()
+app.use(passport.initialize())
 
 const URL_MONGO = process.env.MONGO_URI;
 
@@ -34,6 +34,7 @@ mongoose.connect(URL_MONGO, {
 app.use("/api/clases", clasesRouter);
 app.use("/api/ramas", ramasRouter);
 app.use("/api/categorias", categoriasRouter);
+app.use("/api/usuarios", usuariosRouter);
 
 app.get('/',(req,res)=>{
 
