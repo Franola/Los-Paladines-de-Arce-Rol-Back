@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import clasesRouter from './routes/clases.router.js';
 import ramasRouter from './routes/ramas.router.js';
+import categoriasRouter from './routes/categorias.router.js';
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import jwt from "jsonwebtoken";
@@ -32,6 +33,7 @@ mongoose.connect(URL_MONGO, {
 
 app.use("/api/clases", clasesRouter);
 app.use("/api/ramas", ramasRouter);
+app.use("/api/categorias", categoriasRouter);
 
 app.get('/',(req,res)=>{
 
