@@ -41,6 +41,8 @@ async function createPersonaje(req, res) {
             });
         }
 
+        delete personajeData._id;
+
         const newPersonaje = await personajeService.createPersonaje(personajeData);
         
         return res.status(201).json(newPersonaje);

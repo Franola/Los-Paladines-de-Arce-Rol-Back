@@ -41,6 +41,8 @@ async function createCategoria(req, res) {
             });
         }
 
+        delete categoriaData._id;
+
         const newCategoria = await categoriaService.createCategoria(categoriaData);
         
         return res.status(201).json(newCategoria);

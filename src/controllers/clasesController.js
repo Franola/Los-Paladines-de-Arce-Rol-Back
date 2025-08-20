@@ -41,6 +41,8 @@ async function createClase(req, res) {
             });
         }
 
+        delete claseData._id;
+
         const newClase = await claseService.createClase(claseData);
         
         return res.status(201).json(newClase);

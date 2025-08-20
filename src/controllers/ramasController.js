@@ -41,6 +41,8 @@ async function createRama(req, res) {
             });
         }
 
+        delete ramaData._id;
+
         const newRama = await ramaService.createRama(ramaData);
         
         return res.status(201).json(newRama);
