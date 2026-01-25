@@ -6,17 +6,24 @@ import ramasRouter from './routes/ramas.router.js';
 import categoriasRouter from './routes/categorias.router.js';
 import usuariosRouter from './routes/usuarios.router.js';
 import personajesRouter from './routes/personajes.router.js';
+import notificacionesRouter from './routes/notificaciones.router.js';
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import { iniciarPassport } from "./config/passport.config.js";
 import cors from 'cors';
 
-const PORT=3000;
-
 dotenv.config();
+
+const PORT=3000;
+const URL_MONGO = process.env.MONGO_URI;
+const URL_FRONT = process.env.URL_FRONT;
+
 const app=express();
 
-app.use(cors());
+app.use(cors({
+    origin: URL_FRONT,
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
@@ -24,7 +31,6 @@ app.use(cookieParser());
 iniciarPassport()
 app.use(passport.initialize())
 
-const URL_MONGO = process.env.MONGO_URI;
 
 mongoose.connect(URL_MONGO, {
     dbName: "los-paladines-de-arce",
@@ -39,6 +45,7 @@ app.use("/api/ramas", ramasRouter);
 app.use("/api/categorias", categoriasRouter);
 app.use("/api/usuarios", usuariosRouter);
 app.use("/api/personajes", personajesRouter);
+app.use("/api/notificaciones", notificacionesRouter);
 
 app.get('/',(req,res)=>{
 

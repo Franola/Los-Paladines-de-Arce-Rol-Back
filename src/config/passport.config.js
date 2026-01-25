@@ -41,11 +41,11 @@ export const iniciarPassport = () => {
                     console.log("usuario", username);
                     let usuario = await usuarioService.getUsuarioByUsuario(username)
                     if (!usuario) {
-                        return done(null, false)
+                        return done(null, false, { message: "Credenciales inválidas" })
                     }
 
                     if (!bcrypt.compareSync(password, usuario.password)) { 
-                        return done(null, false)
+                        return done(null, false, { message: "Credenciales inválidas" })
                     }
 
                     return done(null, usuario)
