@@ -1,8 +1,11 @@
 import express from 'express';
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import clasesRouter from './routes/clases.router.js';
 import ramasRouter from './routes/ramas.router.js';
+import categoriasArmaRouter from './routes/categoriasArma.router.js';
+import especiesRouter from './routes/especies.router.js';
+import materialesRouter from './routes/materiales.router.js';
+import tiposArmaduraRouter from './routes/tiposArmadura.router.js';
 import categoriasRouter from './routes/categorias.router.js';
 import usuariosRouter from './routes/usuarios.router.js';
 import personajesRouter from './routes/personajes.router.js';
@@ -34,6 +37,10 @@ app.use(passport.initialize())
 
 app.use("/api/clases", clasesRouter);
 app.use("/api/ramas", ramasRouter);
+app.use("/api/categoriasArma", categoriasArmaRouter);
+app.use("/api/especies", especiesRouter);
+app.use("/api/materiales", materialesRouter);
+app.use("/api/tiposArmadura", tiposArmaduraRouter);
 app.use("/api/categorias", categoriasRouter);
 app.use("/api/usuarios", usuariosRouter);
 app.use("/api/personajes", personajesRouter);
