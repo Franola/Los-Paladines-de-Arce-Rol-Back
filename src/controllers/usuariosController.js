@@ -18,7 +18,8 @@ async function getUsuarios(req, res) {
 async function getUsuarioById(req, res) {
     try {
         const { id } = req.params;
-        const usuario = await usuarioService.getUsuarioById(id);
+        const idNumerico = parseInt(id);
+        const usuario = await usuarioService.getUsuarioById(idNumerico);
 
         if (!usuario) {
             return res.status(404).json({ error: "Usuario no encontrado" });
@@ -68,26 +69,27 @@ async function currentUser(req, res) {
 async function updateUsuario(req, res) {
     try {
         const { id } = req.params;
+        const idNumerico = parseInt(id);
         const usuarioData = req.body;
 
-        if (!usuarioData.descripcion) {
+        if (!usuarioData.usuario || !usuarioData.rol) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
         }
 
-        const usuario = await usuarioService.getUsuarioById(id);
+        const usuario = await usuarioService.getUsuarioById(idNumerico);
         if (!usuario) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
-
-        const updatedUsuario = await usuarioService.updateUsuario(id, usuarioData);
+        
+        const updatedUsuario = await usuarioService.updateUsuario(idNumerico, usuarioData);
 
         return res.status(200).json(updatedUsuario);
     }
     catch (error) {
         return res.status(500).json({
-            error: "Error al actualizar el usuario"
+            error: "Error al actualizar el usuario: " + error.message
         });
     }
 }
@@ -95,13 +97,14 @@ async function updateUsuario(req, res) {
 async function deleteUsuario(req, res) {
     try {
         const { id } = req.params;
+        const idNumerico = parseInt(id);
 
-        const usuario = await usuarioService.getUsuarioById(id);
+        const usuario = await usuarioService.getUsuarioById(idNumerico);
         if (!usuario) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
-        await usuarioService.deleteUsuario(id);
+        await usuarioService.deleteUsuario(idNumerico);
 
         return res.status(200).json(usuario);
     }

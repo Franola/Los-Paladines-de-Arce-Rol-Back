@@ -1,10 +1,10 @@
-import { usuariosDAO } from "../dao/usuariosDAO.js";
+import { usuarioDAO } from "../dao/prisma/usuariosDAO.js";
 import { UserDTO } from "../dto/UserDTO.js";
 
 class UsuarioRepository {
     #UsuarioDAO
     constructor(){
-        this.#UsuarioDAO = usuariosDAO;
+        this.#UsuarioDAO = usuarioDAO;
     }
     
     async getUsuarios() {
