@@ -1,4 +1,4 @@
-import { ramasDAO } from "../dao/ramasDAO.js";
+import { ramasDAO } from "../dao/prisma/ramasDAO.js";
 
 class RamaRepository {
     #RamaDAO

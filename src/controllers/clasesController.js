@@ -67,6 +67,8 @@ async function updateClase(req, res) {
             });
         }
 
+        delete claseData.id;
+
         const clase = await claseService.getClaseById(idNumerico);
         if (!clase) {
             return res.status(404).json({ error: "Clase no encontrada" });
