@@ -1,0 +1,225 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Especie {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  personajes  Personaje[]
+}
+
+model Clase {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  personajes  Personaje[]
+  hechizos     Hechizo[]
+  categoriasArma ClasePermiteCategoriaArma[]
+}
+
+model Rama {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  personajes  Personaje[]
+}
+
+model CategoriaArma {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  armas       Arma[]
+  clases       ClasePermiteCategoriaArma[]
+}
+
+model ClasePermiteCategoriaArma {
+  claseId         Int
+  categoriaArmaId Int
+
+  clase           Clase          @relation(fields: [claseId], references: [id])
+  categoriaArma   CategoriaArma  @relation(fields: [categoriaArmaId], references: [id])
+  @@id([claseId, categoriaArmaId])
+}
+
+model CategoriaArmadura {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  armaduras    Armadura[]
+}
+
+model TipoArmadura{
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  armaduras    Armadura[]
+}
+
+model Material {
+  id          Int          @id @default(autoincrement())
+  descripcion String
+
+  armas        Arma[]
+  armaduras    Armadura[]
+}
+
+model Usuario {
+  id          Int          @id @default(autoincrement())
+  usuario      String
+  password    String
+  rol         String @default("user")
+
+  personajes  Personaje[]
+  notificaciones Notificacion[]
+}
+
+model Personaje {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  nivel       Int
+  vidaActual  Int
+  vidaMaxima  Int
+  manaActual  Int
+  manaMaxima  Int
+
+  especieId   Int
+  claseId     Int
+  ramaId      Int
+  usuarioId   Int
+
+  fuerza      Int
+  destreza    Int
+  constitucion Int
+  inteligencia Int
+  carisma     Int
+  velocidad    Int
+  suerte      Int
+  sabiduria     Int
+  tamanio       Int
+
+  imagen       String
+
+  especie     Especie       @relation(fields: [especieId], references: [id])
+  clase       Clase         @relation(fields: [claseId], references: [id])
+  rama        Rama          @relation(fields: [ramaId], references: [id])
+  usuario     Usuario       @relation(fields: [usuarioId], references: [id])
+  inventarios  Inventario[]
+}
+
+model Notificacion {
+  id        Int      @id @default(autoincrement())
+  hechizos  Hechizo[]  @relation("NotificacionHechizos")
+  armas    Arma[]     @relation("NotificacionArmas")
+  armaduras Armadura[] @relation("NotificacionArmaduras")
+  pasivas   Pasiva[]   @relation("NotificacionPasivas")
+  fecha     DateTime @default(now())
+  tipo      String
+  usuarioId Int
+  vista     Boolean  @default(false)
+
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
+model Hechizo {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+  mana        Int
+  danio       Int
+  claseId     Int
+
+  clase       Clase         @relation(fields: [claseId], references: [id])
+  notificaciones Notificacion[] @relation("NotificacionHechizos")
+  inventarios Inventario[]
+}
+
+model Arma {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+  danio       Int
+  peso        Int
+  categoriaArmaId Int
+  materialId Int
+
+  categoriaArma CategoriaArma @relation(fields: [categoriaArmaId], references: [id])
+  material Material @relation(fields: [materialId], references: [id])
+  notificaciones Notificacion[] @relation("NotificacionArmas")
+  inventarios Inventario[]
+}
+
+model Armadura {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+  peso        Int
+  categoriaArmaduraId Int
+  tipoArmaduraId Int
+  materialId Int
+
+  categoriaArmadura CategoriaArmadura @relation(fields: [categoriaArmaduraId], references: [id])
+  tipoArmadura TipoArmadura @relation(fields: [tipoArmaduraId], references: [id])
+  material Material @relation(fields: [materialId], references: [id])
+  notificaciones Notificacion[] @relation("NotificacionArmaduras")
+  inventarios Inventario[]
+}
+
+model Pasiva {
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+
+  notificaciones Notificacion[] @relation("NotificacionPasivas")
+  inventarios Inventario[]
+}
+
+model Comida{
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+  peso        Int
+
+  inventarios Inventario[]
+}
+
+model Objeto{
+  id          Int          @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  imagen      String
+  peso        Int
+
+  inventarios Inventario[]
+}
+
+model Inventario {
+  id           Int       @id @default(autoincrement())
+  personajeId  Int
+  cantidad     Int       @default(1)
+  equipado     Boolean   @default(false)
+
+  armaId       Int?
+  armaduraId   Int?
+  hechizoId    Int?
+  pasivaId     Int?
+  comidaId     Int?
+  objetoId     Int?
+
+  personaje    Personaje @relation(fields: [personajeId], references: [id])
+  arma         Arma?      @relation(fields: [armaId], references: [id])
+  armadura     Armadura?  @relation(fields: [armaduraId], references: [id])
+  hechizo      Hechizo?   @relation(fields: [hechizoId], references: [id])
+  pasiva       Pasiva?    @relation(fields: [pasivaId], references: [id])
+  comida       Comida?    @relation(fields: [comidaId], references: [id])
+  objeto       Objeto?    @relation(fields: [objetoId], references: [id])
+}

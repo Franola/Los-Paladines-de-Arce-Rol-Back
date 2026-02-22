@@ -15,7 +15,6 @@ import cors from 'cors';
 dotenv.config();
 
 const PORT=3000;
-const URL_MONGO = process.env.MONGO_URI;
 const URL_FRONT = process.env.URL_FRONT;
 
 const app=express();
@@ -32,13 +31,6 @@ iniciarPassport()
 app.use(passport.initialize())
 
 
-mongoose.connect(URL_MONGO, {
-    dbName: "los-paladines-de-arce",
-}).then(() => {
-    console.log("Conectado a la base de datos MongoDB");
-}).catch((error) => {
-    console.error("Error al conectar a la base de datos:", error);
-});
 
 app.use("/api/clases", clasesRouter);
 app.use("/api/ramas", ramasRouter);
