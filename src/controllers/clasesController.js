@@ -16,7 +16,8 @@ async function getClases(req, res) {
 async function getClaseById(req, res) {
     try {
         const { id } = req.params;
-        const clase = await claseService.getClaseById(id);
+        const idNumerico = parseInt(id);
+        const clase = await claseService.getClaseById(idNumerico);
 
         if (!clase) {
             return res.status(404).json({ error: "Clase no encontrada" });
@@ -41,7 +42,7 @@ async function createClase(req, res) {
             });
         }
 
-        delete claseData._id;
+        delete claseData.id;
 
         const newClase = await claseService.createClase(claseData);
         
@@ -57,6 +58,7 @@ async function createClase(req, res) {
 async function updateClase(req, res) {
     try {
         const { id } = req.params;
+        const idNumerico = parseInt(id);
         const claseData = req.body;
 
         if (!claseData.descripcion) {
@@ -65,12 +67,12 @@ async function updateClase(req, res) {
             });
         }
 
-        const clase = await claseService.getClaseById(id);
+        const clase = await claseService.getClaseById(idNumerico);
         if (!clase) {
             return res.status(404).json({ error: "Clase no encontrada" });
         }
 
-        const updatedClase = await claseService.updateClase(id, claseData);
+        const updatedClase = await claseService.updateClase(idNumerico, claseData);
 
         return res.status(200).json(updatedClase);
     }
@@ -84,13 +86,14 @@ async function updateClase(req, res) {
 async function deleteClase(req, res) {
     try {
         const { id } = req.params;
+        const idNumerico = parseInt(id);
 
-        const clase = await claseService.getClaseById(id);
+        const clase = await claseService.getClaseById(idNumerico);
         if (!clase) {
             return res.status(404).json({ error: "Clase no encontrada" });
         }
 
-        await claseService.deleteClase(id);
+        await claseService.deleteClase(idNumerico);
 
         return res.status(200).json(clase);
     }

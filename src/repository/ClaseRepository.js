@@ -1,4 +1,4 @@
-import { clasesDAO } from "../dao/clasesDAO.js";
+import { clasesDAO } from "../dao/prisma/clasesDAO.js";
 
 class ClaseRepository{
     #ClaseDAO
