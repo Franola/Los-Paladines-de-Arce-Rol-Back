@@ -10,6 +10,7 @@ import categoriasRouter from './routes/categorias.router.js';
 import usuariosRouter from './routes/usuarios.router.js';
 import personajesRouter from './routes/personajes.router.js';
 import notificacionesRouter from './routes/notificaciones.router.js';
+import hechizosRouter from './routes/hechizos.router.js';
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import { iniciarPassport } from "./config/passport.config.js";
@@ -45,6 +46,7 @@ app.use("/api/categorias", categoriasRouter);
 app.use("/api/usuarios", usuariosRouter);
 app.use("/api/personajes", personajesRouter);
 app.use("/api/notificaciones", notificacionesRouter);
+app.use("/api/hechizos", hechizosRouter);
 
 app.get('/',(req,res)=>{
 
