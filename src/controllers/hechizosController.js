@@ -61,7 +61,7 @@ async function updateHechizo(req, res) {
         const idNumerico = parseInt(id);
         const hechizoData = req.body;
 
-        if (!hechizoData.nombre || !hechizoData.descripcion || !hechizoData.mana || !hechizoData.danio || !hechizoData.claseId || !hechizoData.imagen) {
+        if (!hechizoData.nombre || !hechizoData.descripcion || hechizoData.mana < 0 || hechizoData.danio < 0 || !hechizoData.claseId || !hechizoData.imagen) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
