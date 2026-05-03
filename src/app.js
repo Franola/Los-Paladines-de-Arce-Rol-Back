@@ -12,6 +12,11 @@ import personajesRouter from './routes/personajes.router.js';
 import notificacionesRouter from './routes/notificaciones.router.js';
 import hechizosRouter from './routes/hechizos.router.js';
 import categoriaArmaduraRouter from './routes/categoriaArmadura.router.js';
+import armasRouter from './routes/armas.router.js';
+import armadurasRouter from './routes/armaduras.router.js';
+import pasivasRouter from './routes/pasivas.router.js';
+import comidasRouter from './routes/comidas.router.js';
+import objetosRouter from './routes/objetos.router.js';
 import cookieParser from "cookie-parser";
 import passport from 'passport';
 import { iniciarPassport } from "./config/passport.config.js";
@@ -49,6 +54,11 @@ app.use("/api/personajes", personajesRouter);
 app.use("/api/notificaciones", notificacionesRouter);
 app.use("/api/hechizos", hechizosRouter);
 app.use("/api/categoriasArmadura", categoriaArmaduraRouter);
+app.use("/api/armas", armasRouter);
+app.use("/api/armaduras", armadurasRouter);
+app.use("/api/pasivas", pasivasRouter);
+app.use("/api/comidas", comidasRouter);
+app.use("/api/objetos", objetosRouter);
 
 app.get('/',(req,res)=>{
 

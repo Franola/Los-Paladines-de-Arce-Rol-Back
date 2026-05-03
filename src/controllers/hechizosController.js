@@ -7,9 +7,7 @@ async function getHechizos(req, res) {
         return res.status(200).json(hechizos);
     }
     catch (error) {
-        return res.status(500).json({ 
-            error: "Error al obtener los hechizos" 
-        });
+        return handlePrismaError(error, res, "Error al obtener los hechizos");
     }
 }
 
@@ -26,16 +24,18 @@ async function getHechizoById(req, res) {
         return res.status(200).json(hechizo);
     }
     catch (error) {
-        return res.status(500).json({
-            error: "Error al obtener el hechizo"
-        });
+        return handlePrismaError(error, res, "Error al obtener el hechizo");
     }
 }
 
 async function createHechizo(req, res) {
     try {
         const hechizoData = req.body;
- 
+
+        if (hechizoData.mana !== undefined) hechizoData.mana = parseInt(hechizoData.mana);
+        if (hechizoData.danio !== undefined) hechizoData.danio = parseInt(hechizoData.danio);
+        if (hechizoData.claseId !== undefined) hechizoData.claseId = parseInt(hechizoData.claseId);
+
         if (!hechizoData.nombre || hechizoData.mana < 0 || hechizoData.danio < 0 || !hechizoData.claseId || !hechizoData.imagen) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
@@ -49,9 +49,7 @@ async function createHechizo(req, res) {
         return res.status(201).json(newHechizo);
     }
     catch (error) {
-        return res.status(500).json({
-            error: "Error al crear el hechizo: " + error.message
-        });
+        return handlePrismaError(error, res, "Error al crear el hechizo");
     }
 }
 
@@ -60,6 +58,10 @@ async function updateHechizo(req, res) {
         const { id } = req.params;
         const idNumerico = parseInt(id);
         const hechizoData = req.body;
+
+        if (hechizoData.mana !== undefined) hechizoData.mana = parseInt(hechizoData.mana);
+        if (hechizoData.danio !== undefined) hechizoData.danio = parseInt(hechizoData.danio);
+        if (hechizoData.claseId !== undefined) hechizoData.claseId = parseInt(hechizoData.claseId);
 
         if (!hechizoData.nombre || !hechizoData.descripcion || hechizoData.mana < 0 || hechizoData.danio < 0 || !hechizoData.claseId || !hechizoData.imagen) {
             return res.status(400).json({
@@ -79,9 +81,7 @@ async function updateHechizo(req, res) {
         return res.status(200).json(updatedHechizo);
     }
     catch (error) {
-        return res.status(500).json({
-            error: "Error al actualizar el hechizo"
-        });
+        return handlePrismaError(error, res, "Error al actualizar el hechizo");
     }
 }
 
@@ -100,9 +100,7 @@ async function deleteHechizo(req, res) {
         return res.status(200).json(hechizo);
     }
     catch (error) {
-        return res.status(500).json({
-            error: "Error al eliminar el hechizo"
-        });
+        return handlePrismaError(error, res, "Error al eliminar el hechizo");
     }
 }
 
