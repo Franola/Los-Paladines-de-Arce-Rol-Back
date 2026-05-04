@@ -63,7 +63,7 @@ async function updateHechizo(req, res) {
         if (hechizoData.danio !== undefined) hechizoData.danio = parseInt(hechizoData.danio);
         if (hechizoData.claseId !== undefined) hechizoData.claseId = parseInt(hechizoData.claseId);
 
-        if (!hechizoData.nombre || !hechizoData.descripcion || hechizoData.mana < 0 || hechizoData.danio < 0 || !hechizoData.claseId || !hechizoData.imagen) {
+        if (!hechizoData.nombre || hechizoData.mana < 0 || hechizoData.danio < 0 || !hechizoData.claseId || !hechizoData.imagen) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });

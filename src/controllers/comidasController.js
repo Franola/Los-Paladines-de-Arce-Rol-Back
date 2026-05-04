@@ -38,7 +38,7 @@ async function createComida(req, res) {
 
         if (comidaData.peso !== undefined) comidaData.peso = parseInt(comidaData.peso);
 
-        if (!comidaData.nombre || !comidaData.descripcion || !comidaData.imagen || comidaData.peso < 0) {
+        if (!comidaData.nombre  || !comidaData.imagen || comidaData.peso < 0) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
@@ -65,7 +65,7 @@ async function updateComida(req, res) {
 
         if (comidaData.peso !== undefined) comidaData.peso = parseInt(comidaData.peso);
 
-        if (!comidaData.nombre || !comidaData.descripcion || !comidaData.imagen || comidaData.peso < 0) {
+        if (!comidaData.nombre  || !comidaData.imagen || comidaData.peso < 0) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });

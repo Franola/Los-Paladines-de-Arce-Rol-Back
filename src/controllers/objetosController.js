@@ -38,7 +38,7 @@ async function createObjeto(req, res) {
 
         if (objetoData.peso !== undefined) objetoData.peso = parseInt(objetoData.peso);
 
-        if (!objetoData.nombre || !objetoData.descripcion || !objetoData.imagen || objetoData.peso < 0) {
+        if (!objetoData.nombre || !objetoData.imagen || objetoData.peso < 0) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
@@ -65,7 +65,7 @@ async function updateObjeto(req, res) {
 
         if (objetoData.peso !== undefined) objetoData.peso = parseInt(objetoData.peso);
 
-        if (!objetoData.nombre || !objetoData.descripcion || !objetoData.imagen || objetoData.peso < 0) {
+        if (!objetoData.nombre || !objetoData.imagen || objetoData.peso < 0) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });

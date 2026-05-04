@@ -41,7 +41,7 @@ async function createArmadura(req, res) {
         if (armaduraData.tipoArmaduraId !== undefined) armaduraData.tipoArmaduraId = parseInt(armaduraData.tipoArmaduraId);
         if (armaduraData.materialId !== undefined) armaduraData.materialId = parseInt(armaduraData.materialId);
 
-        if (!armaduraData.nombre || !armaduraData.descripcion || !armaduraData.imagen || armaduraData.peso < 0 || !armaduraData.categoriaArmaduraId || !armaduraData.tipoArmaduraId || !armaduraData.materialId) {
+        if (!armaduraData.nombre || !armaduraData.imagen || armaduraData.peso < 0 || !armaduraData.categoriaArmaduraId || !armaduraData.tipoArmaduraId || !armaduraData.materialId) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
@@ -71,7 +71,7 @@ async function updateArmadura(req, res) {
         if (armaduraData.tipoArmaduraId !== undefined) armaduraData.tipoArmaduraId = parseInt(armaduraData.tipoArmaduraId);
         if (armaduraData.materialId !== undefined) armaduraData.materialId = parseInt(armaduraData.materialId);
 
-        if (!armaduraData.nombre || !armaduraData.descripcion || !armaduraData.imagen || armaduraData.peso < 0 || !armaduraData.categoriaArmaduraId || !armaduraData.tipoArmaduraId || !armaduraData.materialId) {
+        if (!armaduraData.nombre || !armaduraData.imagen || armaduraData.peso < 0 || !armaduraData.categoriaArmaduraId || !armaduraData.tipoArmaduraId || !armaduraData.materialId) {
             return res.status(400).json({
                 error: "Faltan datos requeridos"
             });
