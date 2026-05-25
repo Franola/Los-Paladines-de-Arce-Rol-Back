@@ -1,4 +1,4 @@
-import { personajesDAO } from "../dao/personajesDAO.js";
+import { personajesDAO } from "../dao/prisma/personajesDAO.js";
 import { UserDTO } from "../dto/UserDTO.js";
 
 class PersonajeRepository {
@@ -10,7 +10,9 @@ class PersonajeRepository {
     async getPersonajes() {
         let personajes = await this.#PersonajeDAO.get();
         personajes = personajes.map(p => {
-            p.usuario = new UserDTO(p.usuario);
+            if (p.usuario) {
+                p.usuario = new UserDTO(p.usuario);
+            }
             return p;
         });
         return personajes;
@@ -18,7 +20,7 @@ class PersonajeRepository {
 
     async getPersonajeById(id) {
         let personaje = await this.#PersonajeDAO.getById(id);
-        if (personaje) {
+        if (personaje && personaje.usuario) {
             personaje.usuario = new UserDTO(personaje.usuario);
         }
         return personaje;
@@ -34,7 +36,6 @@ class PersonajeRepository {
     }
 
     async deletePersonaje(id) {
-        
         return await this.#PersonajeDAO.delete(id);
     }
 }
